@@ -1,0 +1,74 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$1wNib3HFBg5f9XuRZhggv2$lPIARcoUeauK+hG/h6ZSatMoFHLqQtrJkvhPXvHkimw=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "steve@stevebrownlee.com",
+            "first_name": "Steve",
+            "last_name": "Brownlee",
+            "email": "steve@stevebrownlee.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-04-15T14:45:55.558Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$JylTEoYo7TMa2nmN9IYeht$9xrEJ+iIa1ADPJKEBan60GK9q1tidN6ZJlllZToPAZk=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "meg@ducharme.com",
+            "first_name": "Meg",
+            "last_name": "Ducharme",
+            "email": "meg@ducharme.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-04-16T15:44:36.235Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$VnKtCGTmE2wYi8kjniMrq6$CiXp4O2WrhcS4xsArMH60hQ8qyVbC1Oz2/eAFvW+XBU=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "bryan@nilson.com",
+            "first_name": "Bryan",
+            "last_name": "Nilson",
+            "email": "bryan@nilson.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-04-16T15:46:55.331Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$uQoUQDZFaeKVXC2MUgY09S$uMGAQP+ynhKO97riVNkRxPeHou2quYm9Wf0KviDeREs=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "jenna@solis.com",
+            "first_name": "Jenna",
+            "last_name": "Solis",
+            "email": "jenna@solis.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-04-16T15:47:31.654Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]

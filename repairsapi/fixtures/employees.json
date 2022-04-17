@@ -1,0 +1,42 @@
+[
+    {
+        "model": "repairsapi.employee",
+        "pk": 1,
+        "fields": {
+            "name": "Emily Ernser",
+            "specialty": "Windows PC Maintenance"
+        }
+    },
+    {
+        "model": "repairsapi.employee",
+        "pk": 2,
+        "fields": {
+            "name": "Wilbur Mayert",
+            "specialty": "Networking and Routers"
+        }
+    },
+    {
+        "model": "repairsapi.employee",
+        "pk": 3,
+        "fields": {
+            "name": "Bobbie Müller",
+            "specialty": "Apple Macs and Macbooks"
+        }
+    },
+    {
+        "model": "repairsapi.employee",
+        "pk": 4,
+        "fields": {
+            "name": "Barbara Lowe",
+            "specialty": "Mobile Phones"
+        }
+    },
+    {
+        "model": "repairsapi.employee",
+        "pk": 5,
+        "fields": {
+            "name": "Angie Hettinger",
+            "specialty": "Printer Repair"
+        }
+    }
+]

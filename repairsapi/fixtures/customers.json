@@ -1,0 +1,34 @@
+[
+    {
+        "model": "repairsapi.customer",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "address": "404 Unknown Route"
+        }
+    },
+    {
+        "model": "repairsapi.customer",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "address": "201 Creation Lame"
+        }
+    },
+    {
+        "model": "repairsapi.customer",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "address": "201 Creation Lame"
+        }
+    },
+    {
+        "model": "repairsapi.customer",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "address": "405 Unsupported Road"
+        }
+    }
+]
