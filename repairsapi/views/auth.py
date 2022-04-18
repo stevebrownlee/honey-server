@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from repairsapi.models import Customer, Employee
 
-from repairsapi.models import Customer
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -44,6 +45,10 @@ def register_user(request):
       request -- The full HTTP request object
     '''
 
+    account_type = request.data.get('account_type', None)
+    if account_type is None:
+        return Response({'message': 'You must supply an account type'}, status=status.HTTP_400_BAD_REQUEST)
+
     # Create a new user by invoking the `create_user` helper method
     # on Django's built-in User model
     new_user = User.objects.create_user(
@@ -55,13 +60,23 @@ def register_user(request):
     )
 
     # Now save the extra info in the levelupapi_gamer table
-    customer = Customer.objects.create(
-        address=request.data['address'],
-        user=new_user
-    )
+
+    account = None
+
+    if account_type == 'customer':
+        account = Customer.objects.create(
+            address=request.data['address'],
+            user=new_user
+        )
+    elif account_type == 'employee':
+        account = Employee.objects.create(
+            specialty=request.data['specialty'],
+            user=new_user
+        )
+
 
     # Use the REST Framework's token generator on the new user account
-    token = Token.objects.create(user=customer.user)
+    token = Token.objects.create(user=account.user)
     # Return the token to the client
     data = { 'token': token.key }
     return Response(data)

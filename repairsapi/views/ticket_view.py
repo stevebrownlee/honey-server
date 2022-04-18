@@ -1,9 +1,10 @@
 """View module for handling requests for serviceTicket data"""
 from datetime import datetime
+from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from repairsapi.models import ServiceTicket, Customer, Employee
+from repairsapi.models import ServiceTicket, Customer, Employee, employee
 
 
 # TODO: Make serviceTickets users of the system that can log in with the client app.
@@ -44,7 +45,12 @@ class ServiceTicketView(ViewSet):
         Returns:
             Response -- JSON serialized list of serviceTickets
         """
-        serviceTickets = ServiceTicket.objects.all()
+
+        # TODO: Order tickets by date and ememergency. Incomplete come first
+        #       and, of those, emergencies come first.
+        #           "django query order by multiple fields"
+
+        serviceTickets = ServiceTicket.objects.all().order_by("date_completed", "-emergency")
         serialized = ServiceTicketSerializer(serviceTickets, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
@@ -77,10 +83,19 @@ class ServiceTicketView(ViewSet):
         except Exception as ex:
             return HttpResponseServerError(ex)
 
+class TicketCustomerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Customer
+        fields = ('id', 'full_name', 'address', )
 
 class ServiceTicketSerializer(serializers.ModelSerializer):
     """JSON serializer for serviceTickets"""
+    customer = TicketCustomerSerializer()
+
+    # TODO: The client wants the customer to have a name property.
+    #       Currently just has `user` property with primary key value
     class Meta:
         model = ServiceTicket
-        fields = ('id', 'description', 'date_completed', 'employee', 'customer', )
+        fields = ( 'id', 'description', 'emergency', 'date_completed', 'employee', 'customer', )
         depth = 1
