@@ -50,7 +50,11 @@ class ServiceTicketView(ViewSet):
         #       and, of those, emergencies come first.
         #           "django query order by multiple fields"
 
-        serviceTickets = ServiceTicket.objects.all().order_by("date_completed", "-emergency")
+        if request.auth.user.is_staff:
+            serviceTickets = ServiceTicket.objects.all().order_by("date_completed", "-emergency")
+        else:
+            serviceTickets = ServiceTicket.objects.filter(customer__user=request.auth.user).order_by("date_completed", "-emergency")
+
         serialized = ServiceTicketSerializer(serviceTickets, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
@@ -87,11 +91,18 @@ class TicketCustomerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ('id', 'full_name', 'address', )
+        fields = ('id', 'full_name', )
+
+class TicketEmployeeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Employee
+        fields = ('id', 'full_name', )
 
 class ServiceTicketSerializer(serializers.ModelSerializer):
     """JSON serializer for serviceTickets"""
     customer = TicketCustomerSerializer()
+    employee = TicketEmployeeSerializer()
 
     # TODO: The client wants the customer to have a name property.
     #       Currently just has `user` property with primary key value

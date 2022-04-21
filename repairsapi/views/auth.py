@@ -26,9 +26,11 @@ def login_user(request):
     # If authentication was successful, respond with their token
     if authenticated_user is not None:
         token = Token.objects.get(user=authenticated_user)
+
         data = {
             'valid': True,
-            'token': token.key
+            'token': token.key,
+            'staff': authenticated_user.is_staff
         }
         return Response(data)
     else:
@@ -69,6 +71,9 @@ def register_user(request):
             user=new_user
         )
     elif account_type == 'employee':
+        new_user.is_staff = True
+        new_user.save()
+
         account = Employee.objects.create(
             specialty=request.data['specialty'],
             user=new_user
@@ -78,5 +83,5 @@ def register_user(request):
     # Use the REST Framework's token generator on the new user account
     token = Token.objects.create(user=account.user)
     # Return the token to the client
-    data = { 'token': token.key }
+    data = { 'token': token.key, 'staff': new_user.is_staff }
     return Response(data)
