@@ -20,14 +20,15 @@ class ServiceTicketView(ViewSet):
             Response: JSON serialized representation of newly created service ticket
         """
         new_ticket = ServiceTicket()
-        new_ticket.employee = Employee.objects.get(pk=request.data['employee'])
         new_ticket.customer = Customer.objects.get(user=request.auth.user)
         new_ticket.description = request.data['description']
         new_ticket.emergency = request.data['emergency']
-        new_ticket.date_completed = datetime.today
+        new_ticket.save()
+
+        serialized = ServiceTicketSerializer(new_ticket, many=False)
 
         # TODO: This method should return a JSON serialization of the newly created ticket
-        return Response(None, status=status.HTTP_201_CREATED)
+        return Response(serialized.data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, pk=None):
         """Handle GET requests for single serviceTicket
@@ -110,3 +111,106 @@ class ServiceTicketSerializer(serializers.ModelSerializer):
         model = ServiceTicket
         fields = ( 'id', 'description', 'emergency', 'date_completed', 'employee', 'customer', )
         depth = 1
+
+
+
+
+
+
+
+
+
+
+
+        """
+        {
+        "model": "auth.user",
+        "pk": 5,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$uQoUQDZFaeKVXC2MUgY09S$uMGAQP+ynhKO97riVNkRxPeHou2quYm9Wf0KviDeREs=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "emily@lemmon.com",
+            "first_name": "Emily",
+            "last_name": "Lemmon",
+            "email": "emily@lemmon.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2022-04-16T15:47:31.654Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$uQoUQDZFaeKVXC2MUgY09S$uMGAQP+ynhKO97riVNkRxPeHou2quYm9Wf0KviDeREs=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "leah@gwin.com",
+            "first_name": "Leah",
+            "last_name": "Gwin",
+            "email": "leah@gwin.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2022-04-16T15:47:31.654Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 7,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$uQoUQDZFaeKVXC2MUgY09S$uMGAQP+ynhKO97riVNkRxPeHou2quYm9Wf0KviDeREs=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "kimmy@bird.com",
+            "first_name": "Kimmy",
+            "last_name": "Bird",
+            "email": "jenna@solis.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2022-04-16T15:47:31.654Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 8,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$uQoUQDZFaeKVXC2MUgY09S$uMGAQP+ynhKO97riVNkRxPeHou2quYm9Wf0KviDeREs=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "kristen@norris.com",
+            "first_name": "Kristen",
+            "last_name": "Norris",
+            "email": "kristen@norris.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2022-04-16T15:47:31.654Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 9,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$uQoUQDZFaeKVXC2MUgY09S$uMGAQP+ynhKO97riVNkRxPeHou2quYm9Wf0KviDeREs=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "ryan@tanay.com",
+            "first_name": "Ryan",
+            "last_name": "Tanay",
+            "email": "ryan@tanay.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2022-04-16T15:47:31.654Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+        """

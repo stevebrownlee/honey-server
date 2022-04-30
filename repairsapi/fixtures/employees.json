@@ -4,7 +4,7 @@
         "pk": 1,
         "fields": {
             "user": 5,
-            "specialty": "Windows PC Maintenance"
+            "specialty": "Mobile Phones"
         }
     },
     {
@@ -12,7 +12,7 @@
         "pk": 2,
         "fields": {
             "user": 6,
-            "specialty": "Networking and Routers"
+            "specialty": "Printer Repair"
         }
     },
     {
@@ -28,7 +28,7 @@
         "pk": 4,
         "fields": {
             "user": 8,
-            "specialty": "Mobile Phones"
+            "specialty": "Networking and Routers"
         }
     },
     {
@@ -36,7 +36,7 @@
         "pk": 5,
         "fields": {
             "user": 9,
-            "specialty": "Printer Repair"
+            "specialty": "Windows PC Maintenance"
         }
     }
 ]

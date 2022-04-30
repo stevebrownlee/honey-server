@@ -75,61 +75,7 @@
         "model": "auth.user",
         "pk": 5,
         "fields": {
-            "password": "pbkdf2_sha256$320000$uQoUQDZFaeKVXC2MUgY09S$uMGAQP+ynhKO97riVNkRxPeHou2quYm9Wf0KviDeREs=",
-            "last_login": null,
-            "is_superuser": false,
-            "username": "emily@lemmon.com",
-            "first_name": "Emily",
-            "last_name": "Lemmon",
-            "email": "emily@lemmon.com",
-            "is_staff": true,
-            "is_active": true,
-            "date_joined": "2022-04-16T15:47:31.654Z",
-            "groups": [],
-            "user_permissions": []
-        }
-    },
-    {
-        "model": "auth.user",
-        "pk": 6,
-        "fields": {
-            "password": "pbkdf2_sha256$320000$uQoUQDZFaeKVXC2MUgY09S$uMGAQP+ynhKO97riVNkRxPeHou2quYm9Wf0KviDeREs=",
-            "last_login": null,
-            "is_superuser": false,
-            "username": "leah@gwin.com",
-            "first_name": "Leah",
-            "last_name": "Gwin",
-            "email": "leah@gwin.com",
-            "is_staff": true,
-            "is_active": true,
-            "date_joined": "2022-04-16T15:47:31.654Z",
-            "groups": [],
-            "user_permissions": []
-        }
-    },
-    {
-        "model": "auth.user",
-        "pk": 7,
-        "fields": {
-            "password": "pbkdf2_sha256$320000$uQoUQDZFaeKVXC2MUgY09S$uMGAQP+ynhKO97riVNkRxPeHou2quYm9Wf0KviDeREs=",
-            "last_login": null,
-            "is_superuser": false,
-            "username": "kimmy@bird.com",
-            "first_name": "Kimmy",
-            "last_name": "Bird",
-            "email": "jenna@solis.com",
-            "is_staff": true,
-            "is_active": true,
-            "date_joined": "2022-04-16T15:47:31.654Z",
-            "groups": [],
-            "user_permissions": []
-        }
-    },
-    {
-        "model": "auth.user",
-        "pk": 8,
-        "fields": {
-            "password": "pbkdf2_sha256$320000$uQoUQDZFaeKVXC2MUgY09S$uMGAQP+ynhKO97riVNkRxPeHou2quYm9Wf0KviDeREs=",
+            "password": "pbkdf2_sha256$320000$F454cpZxLRuFSZ89WYaamE$K0SEno0IY/oGmsAAHzI7G4ZSr8gHob250v5fuRhr1ag=",
             "last_login": null,
             "is_superuser": false,
             "username": "kristen@norris.com",
@@ -138,7 +84,61 @@
             "email": "kristen@norris.com",
             "is_staff": true,
             "is_active": true,
-            "date_joined": "2022-04-16T15:47:31.654Z",
+            "date_joined": "2022-04-30T14:01:15.350Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$J6G1MDMUd8RMprjorw34W3$ceT4BwT3nBJJmhx+DdOAZA4K6eD2rKHbYxVoWTKXRVc=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "emily@lemmon.com",
+            "first_name": "Emily",
+            "last_name": "Lemmon",
+            "email": "emily@lemmon.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2022-04-30T14:01:55.481Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 7,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$bn5DFQURW2pQuzO5NwslYq$U2OB9SJcLXrlVwiI7xUp/NvoxA/HNx/WmD8gM7ZazlI=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "leah@gwin.com",
+            "first_name": "Leah",
+            "last_name": "Gwin",
+            "email": "leah@gwin.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2022-04-30T14:02:23.787Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 8,
+        "fields": {
+            "password": "pbkdf2_sha256$320000$yXm59PkNuodmNEFDsLxgS3$/RMRLbaJiLoWmmxG97YRJD3GRP5fhTSagFD0mfns+Bo=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "kimmy@bird.com",
+            "first_name": "Kimmy",
+            "last_name": "Bird",
+            "email": "kimmy@bird.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2022-04-30T14:02:49.747Z",
             "groups": [],
             "user_permissions": []
         }
@@ -147,7 +147,7 @@
         "model": "auth.user",
         "pk": 9,
         "fields": {
-            "password": "pbkdf2_sha256$320000$uQoUQDZFaeKVXC2MUgY09S$uMGAQP+ynhKO97riVNkRxPeHou2quYm9Wf0KviDeREs=",
+            "password": "pbkdf2_sha256$320000$rh6bwcnpdeGyK02IIjlwrW$cLCfsWdRJY1iOAop2TgCldiW5LSw2aU5Xuh6G5oYbpk=",
             "last_login": null,
             "is_superuser": false,
             "username": "ryan@tanay.com",
@@ -156,7 +156,7 @@
             "email": "ryan@tanay.com",
             "is_staff": true,
             "is_active": true,
-            "date_joined": "2022-04-16T15:47:31.654Z",
+            "date_joined": "2022-04-30T14:03:36.208Z",
             "groups": [],
             "user_permissions": []
         }
