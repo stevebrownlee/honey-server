@@ -1,42 +1,26 @@
 [
-    {
-        "model": "repairsapi.employee",
-        "pk": 1,
-        "fields": {
-            "user": 5,
-            "specialty": "Mobile Phones"
-        }
-    },
-    {
-        "model": "repairsapi.employee",
-        "pk": 2,
-        "fields": {
-            "user": 6,
-            "specialty": "Printer Repair"
-        }
-    },
-    {
-        "model": "repairsapi.employee",
-        "pk": 3,
-        "fields": {
-            "user": 7,
-            "specialty": "Apple Macs and Macbooks"
-        }
-    },
-    {
-        "model": "repairsapi.employee",
-        "pk": 4,
-        "fields": {
-            "user": 8,
-            "specialty": "Networking and Routers"
-        }
-    },
-    {
-        "model": "repairsapi.employee",
-        "pk": 5,
-        "fields": {
-            "user": 9,
-            "specialty": "Windows PC Maintenance"
-        }
+{
+    "model": "repairsapi.employee",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "specialty": "Routers"
     }
+},
+{
+    "model": "repairsapi.employee",
+    "pk": 2,
+    "fields": {
+        "user": 5,
+        "specialty": "Laptops"
+    }
+},
+{
+    "model": "repairsapi.employee",
+    "pk": 3,
+    "fields": {
+        "user": 6,
+        "specialty": "Mobile phones"
+    }
+}
 ]

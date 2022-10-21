@@ -48,40 +48,63 @@ def register_user(request):
     '''
 
     account_type = request.data.get('account_type', None)
-    if account_type is None:
-        return Response({'message': 'You must supply an account type'}, status=status.HTTP_400_BAD_REQUEST)
+    email = request.data.get('email', None)
+    first_name = request.data.get('first_name', None)
+    last_name = request.data.get('last_name', None)
+    account_type = request.data.get('account_type', None)
+    password = request.data.get('password', None)
 
-    # Create a new user by invoking the `create_user` helper method
-    # on Django's built-in User model
-    new_user = User.objects.create_user(
-        username=request.data['email'],
-        email=request.data['email'],
-        password=request.data['password'],
-        first_name=request.data['first_name'],
-        last_name=request.data['last_name']
-    )
+    if account_type is not None \
+        and email is not None\
+        and first_name is not None \
+        and last_name is not None \
+        and password is not None:
 
-    # Now save the extra info in the levelupapi_gamer table
+        if account_type == 'customer':
+            address = request.data.get('address', None)
+            if address is None:
+                return Response({'message': 'You must provide an address for a customer'}, status=status.HTTP_400_BAD_REQUEST)
+        elif account_type == 'employee':
+            specialty = request.data.get('specialty', None)
+            if specialty is None:
+                return Response({'message': 'You must provide and specialty'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'message': 'Invalid account type. Valid values are \'customer\' or \'employee\''}, status=status.HTTP_400_BAD_REQUEST)
 
-    account = None
 
-    if account_type == 'customer':
-        account = Customer.objects.create(
-            address=request.data['address'],
-            user=new_user
+        # Create a new user by invoking the `create_user` helper method
+        # on Django's built-in User model
+        new_user = User.objects.create_user(
+            username=request.data['email'],
+            email=request.data['email'],
+            password=request.data['password'],
+            first_name=request.data['first_name'],
+            last_name=request.data['last_name']
         )
-    elif account_type == 'employee':
-        new_user.is_staff = True
-        new_user.save()
 
-        account = Employee.objects.create(
-            specialty=request.data['specialty'],
-            user=new_user
-        )
+        # Now save the extra info in the levelupapi_gamer table
+
+        account = None
+
+        if account_type == 'customer':
+            account = Customer.objects.create(
+                address=request.data['address'],
+                user=new_user
+            )
+        elif account_type == 'employee':
+            new_user.is_staff = True
+            new_user.save()
+
+            account = Employee.objects.create(
+                specialty=request.data['specialty'],
+                user=new_user
+            )
 
 
-    # Use the REST Framework's token generator on the new user account
-    token = Token.objects.create(user=account.user)
-    # Return the token to the client
-    data = { 'token': token.key, 'staff': new_user.is_staff }
-    return Response(data)
+        # Use the REST Framework's token generator on the new user account
+        token = Token.objects.create(user=account.user)
+        # Return the token to the client
+        data = { 'token': token.key, 'staff': new_user.is_staff }
+        return Response(data)
+
+    return Response({'message': 'You must provide email, password, first_name, last_name and account_type'}, status=status.HTTP_400_BAD_REQUEST)
