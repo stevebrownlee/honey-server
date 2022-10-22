@@ -88,22 +88,22 @@ class ServiceTicketView(ViewSet):
         except Exception as ex:
             return HttpResponseServerError(ex)
 
-class TicketCustomerSerializer(serializers.ModelSerializer):
+# class TicketCustomerSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Customer
-        fields = ('id', 'full_name', )
+#     class Meta:
+#         model = Customer
+#         fields = ('id', 'full_name', )
 
-class TicketEmployeeSerializer(serializers.ModelSerializer):
+# class TicketEmployeeSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Employee
-        fields = ('id', 'full_name', )
+#     class Meta:
+#         model = Employee
+#         fields = ('id', 'full_name', )
 
 class ServiceTicketSerializer(serializers.ModelSerializer):
     """JSON serializer for serviceTickets"""
-    customer = TicketCustomerSerializer()
-    employee = TicketEmployeeSerializer()
+    # customer = TicketCustomerSerializer()
+    # employee = TicketEmployeeSerializer()
 
     # TODO: The client wants the customer to have a name property.
     #       Currently just has `user` property with primary key value

@@ -46,7 +46,6 @@ def register_user(request):
     Method arguments:
       request -- The full HTTP request object
     '''
-
     account_type = request.data.get('account_type', None)
     email = request.data.get('email', None)
     first_name = request.data.get('first_name', None)
@@ -63,14 +62,22 @@ def register_user(request):
         if account_type == 'customer':
             address = request.data.get('address', None)
             if address is None:
-                return Response({'message': 'You must provide an address for a customer'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {'message': 'You must provide an address for a customer'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
         elif account_type == 'employee':
             specialty = request.data.get('specialty', None)
             if specialty is None:
-                return Response({'message': 'You must provide and specialty'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {'message': 'You must provide a specialty for an employee'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
         else:
-            return Response({'message': 'Invalid account type. Valid values are \'customer\' or \'employee\''}, status=status.HTTP_400_BAD_REQUEST)
-
+            return Response(
+                {'message': 'Invalid account type. Valid values are \'customer\' or \'employee\''},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         # Create a new user by invoking the `create_user` helper method
         # on Django's built-in User model
