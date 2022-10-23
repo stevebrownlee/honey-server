@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -79,15 +80,21 @@ def register_user(request):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Create a new user by invoking the `create_user` helper method
-        # on Django's built-in User model
-        new_user = User.objects.create_user(
-            username=request.data['email'],
-            email=request.data['email'],
-            password=request.data['password'],
-            first_name=request.data['first_name'],
-            last_name=request.data['last_name']
-        )
+        try:
+            # Create a new user by invoking the `create_user` helper method
+            # on Django's built-in User model
+            new_user = User.objects.create_user(
+                username=request.data['email'],
+                email=request.data['email'],
+                password=request.data['password'],
+                first_name=request.data['first_name'],
+                last_name=request.data['last_name']
+            )
+        except IntegrityError:
+            return Response(
+                {'message': 'An account with that email address already exists'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         # Now save the extra info in the levelupapi_gamer table
 

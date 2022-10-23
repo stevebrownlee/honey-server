@@ -95,19 +95,7 @@ class CustomerView(ViewSet):
 
 class CustomerSerializer(serializers.ModelSerializer):
     """JSON serializer for customers"""
-    # name = serializers.SerializerMethodField()
-
-    # def get_name(self, obj):
-    #     return f'{obj.user.first_name} {obj.user.last_name}'
 
     class Meta:
         model = Customer
-        fields = ('id', 'address', 'user')
-
-        # Instead of including the user property (which would be an integer)
-        # Create a virtual property called `name` which is defined
-        # above with the SerializerMethodField(). Then, when a
-        # Customer is serialized, the get_name() method above is
-        # invoked to combine the `first_name` and `last_name` fields
-        # from the Django User model.
-        # fields = ('id', 'name', 'address', 'name')
+        fields = ('id', 'address', 'full_name')

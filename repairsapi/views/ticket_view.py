@@ -4,11 +4,8 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from repairsapi.models import ServiceTicket, Customer, Employee, employee
+from repairsapi.models import ServiceTicket, Customer, Employee
 
-
-# TODO: Make serviceTickets users of the system that can log in with the client app.
-#       Make sure all serviceTickets are marked as staff members, but no customers are.
 
 class ServiceTicketView(ViewSet):
     """Honey Rae API service tickets view"""
@@ -27,7 +24,6 @@ class ServiceTicketView(ViewSet):
 
         serialized = ServiceTicketSerializer(new_ticket, many=False)
 
-        # TODO: This method should return a JSON serialization of the newly created ticket
         return Response(serialized.data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, pk=None):
@@ -88,29 +84,29 @@ class ServiceTicketView(ViewSet):
         except Exception as ex:
             return HttpResponseServerError(ex)
 
-# class TicketCustomerSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Customer
-#         fields = ('id', 'full_name', )
+class TicketEmployeeSerializer(serializers.ModelSerializer):
 
-# class TicketEmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ('id', 'specialty', 'full_name')
 
-#     class Meta:
-#         model = Employee
-#         fields = ('id', 'full_name', )
+
+class TicketCustomerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Customer
+        fields = ('id', 'full_name')
+
 
 class ServiceTicketSerializer(serializers.ModelSerializer):
     """JSON serializer for serviceTickets"""
-    # customer = TicketCustomerSerializer()
-    # employee = TicketEmployeeSerializer()
+    employee = TicketEmployeeSerializer(many=False)
+    customer = TicketCustomerSerializer(many=False)
 
-    # TODO: The client wants the customer to have a name property.
-    #       Currently just has `user` property with primary key value
     class Meta:
         model = ServiceTicket
         fields = ( 'id', 'description', 'emergency', 'date_completed', 'employee', 'customer', )
-        depth = 1
 
 
 

@@ -48,11 +48,6 @@ class EmployeeView(ViewSet):
 
 class EmployeeSerializer(serializers.ModelSerializer):
     """JSON serializer for employees"""
-    name = serializers.SerializerMethodField()
-
-    def get_name(self, obj):
-        return f'{obj.user.first_name} {obj.user.last_name}'
-
     class Meta:
         model = Employee
-        fields = ('id', 'name', 'specialty')
+        fields = ('id', 'specialty', 'full_name')
