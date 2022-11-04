@@ -5,3 +5,9 @@ delete from repairsapi_customer where user_id = 11;
 delete from authtoken_token where user_id = 11;
 select * from repairsapi_employee;
 delete from repairsapi_serviceticket where id = 11;
+
+select * from repairsapi_serviceticket;
+
+update repairsapi_serviceticket
+    set employee_id = NULL
+    where id = 9;

@@ -10,6 +10,18 @@ from repairsapi.models import ServiceTicket, Customer, Employee
 class ServiceTicketView(ViewSet):
     """Honey Rae API service tickets view"""
 
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for service tickets
+
+        Returns:
+            Response: None with 204 status code
+        """
+        service_ticket = ServiceTicket.objects.get(pk=pk)
+        service_ticket.delete()
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
     def create(self, request):
         """Handle POST requests for service tickets
 
@@ -32,8 +44,8 @@ class ServiceTicketView(ViewSet):
         Returns:
             Response -- JSON serialized serviceTicket record
         """
-        serviceTicket = ServiceTicket.objects.get(pk=pk)
-        serialized = ServiceTicketSerializer(serviceTicket)
+        service_ticket = ServiceTicket.objects.get(pk=pk)
+        serialized = ServiceTicketSerializer(service_ticket)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     def list(self, request):
@@ -42,22 +54,31 @@ class ServiceTicketView(ViewSet):
         Returns:
             Response -- JSON serialized list of serviceTickets
         """
+        service_tickets = []
 
-        # TODO: Order tickets by date and ememergency. Incomplete come first
-        #       and, of those, emergencies come first.
-        #           "django query order by multiple fields"
+        if "status" in request.query_params:
+            if request.query_params['status'] == "done":
+                service_tickets = ServiceTicket.objects.filter(date_completed__isnull=False)
 
-        if request.auth.user.is_staff:
-            serviceTickets = ServiceTicket.objects.all().order_by("date_completed", "-emergency")
+            if request.query_params['status'] == "unclaimed":
+                service_tickets = ServiceTicket.objects.filter(date_completed__isnull=False, employee__isnull=False)
+
+            if request.query_params['status'] == "inprogress":
+                service_tickets = ServiceTicket.objects.filter(date_completed__isnull=False, employee__isnull=True)
+
+            if request.query_params['status'] == "all":
+                service_tickets = ServiceTicket.objects.all()
+
         else:
-            serviceTickets = ServiceTicket.objects.filter(customer__user=request.auth.user).order_by("date_completed", "-emergency")
+            if request.auth.user.is_staff:
+                service_tickets = ServiceTicket.objects.all()
+            else:
+                service_tickets = ServiceTicket.objects.filter(customer__user=request.auth.user)
 
-        serialized = ServiceTicketSerializer(serviceTickets, many=True)
+
+
+        serialized = ServiceTicketSerializer(service_tickets, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
-
-    def destroy(self, request, pk=None):
-        """Unsupported from customer facing client"""
-        return Response({'message': 'Unsupported HTTP method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def update(self, request, pk=None):
         """Handle PUT requests for single customer
@@ -65,24 +86,23 @@ class ServiceTicketView(ViewSet):
         Returns:
             Response -- No response body. Just 204 status code.
         """
-        try:
-            # Get the customer based on primary key in the URL
-            ticket = ServiceTicket.objects.get(pk=pk)
 
-            # Update the record and save back to the database
-            ticket.employee = Employee.objects.get(pk=request.data['employee'])
-            ticket.save()
+        # Select the targeted ticket using pk
+        ticket = ServiceTicket.objects.get(pk=pk)
 
-            # Respond with no body and a 204 status code
-            return Response(None, status=status.HTTP_204_NO_CONTENT)
+        # Get the employee id from the client request
+        employee_id = request.data['employee']
 
-        # A PUT request was made for a serviceTicket that doesn't exist
-        except ServiceTicket.DoesNotExist:
-            return Response(None, status=status.HTTP_404_NOT_FOUND)
+        # Select the employee from the database using that id
+        assigned_employee = Employee.objects.get(pk=employee_id)
 
-        # Capture any other exceptions that might occur and respond with 500 status code
-        except Exception as ex:
-            return HttpResponseServerError(ex)
+        # Assign that Employee instance to the employee property of the ticket
+        ticket.employee = assigned_employee
+
+        # Save the updated ticket
+        ticket.save()
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
 class TicketEmployeeSerializer(serializers.ModelSerializer):
